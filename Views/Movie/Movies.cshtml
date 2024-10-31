@@ -1,0 +1,21 @@
+@model MovieViewModel
+
+<h1>Film Listesi</h1>
+<div id="filmler">
+    @if (Model.Movies.Count() > 0)
+    {
+        @foreach (var movie in Model.Movies)
+        {
+            @await Html.PartialAsync("_movie", movie)
+        }
+    }else{
+        <div class="alert alert-warning">
+            film bulunamadı 
+        </div>
+    }
+</div>
+
+@section menu {
+    @* @await Html.PartialAsync("_menu",Model.Genres) *@
+    @await Component.InvokeAsync("Genres")
+}  

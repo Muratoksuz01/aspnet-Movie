@@ -1,0 +1,17 @@
+﻿@model HomePageViewModel
+
+@{
+  ViewData["Title"] = "Home Index Page";
+}
+
+@section _header {
+  @await Html.PartialAsync("_headers")
+}
+
+<h2> Film listesi</h2>
+<div id="filmler">
+  @foreach (var item in Model.PopulerMovies)
+  {
+    @await Html.PartialAsync("_movie", item)
+  }
+</div>
