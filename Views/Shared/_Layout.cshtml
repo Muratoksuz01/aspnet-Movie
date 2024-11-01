@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    @RenderSection("message",false)
     @await Html.PartialAsync("_navbar")
     @RenderSection("_header", false)
     @if (IsSectionDefined("menu"))

@@ -1,25 +1,42 @@
 @model Movie
-<form asp-action="Create" asp-controller="Movie" method="post">
 
+<p> @Model.MovieId</p>
+<form asp-action="Edit" asp-controller="Movie" method="post">
+    <input type="hidden" name="MovieId" value="@Model.MovieId">
     <div class="form-group">
-        <label asp-for="Title" ></label>
-        <input asp-for="Title" class="form-control" >
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control">
+        <span asp-validation-for="Title" class=" text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Description" ></label>
-    <textarea asp-for="Description" class="form-control"></textarea>
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class=" text-danger"></span>
+
     </div>
     <div class="form-group">
-        <label asp-for="Director" ></label>
+        <label asp-for="Director"></label>
         <input asp-for="Director" class="form-control">
+        <span asp-validation-for="Director" class=" text-danger"></span>
+
     </div>
     <div class="form-group">
-        <label asp-for="Imageurl" ></label>
+        <label asp-for="Imageurl"></label>
         <input asp-for="Imageurl" class="form-control">
     </div>
-     <div class="form-group">
-        <label asp-for="GenreId" ></label>
-        <input asp-for="GenreId" class="form-control">
+    <div class="form-group">
+        <label asp-for="GenreId"></label>
+         <select asp-for="GenreId" class="form-control" asp-items="@ViewBag.Genres"> @*  hocanın yontemi *@
+            <option selected disabled>seciniz</option>
+        </select>
+        @* benim yontem 
+        <select asp-for="GenreId" class="form-control">
+            <option selected disabled>seciniz</option>
+            @foreach (var item in @ViewBag.Genres)
+            {
+                <option value="@item.GenreId">@item.Name</option>
+            }
+        </select> *@
     </div>
-        <button type="submit" class="btn btn-primary">kaydet</button>
+    <button type="submit" class="btn btn-primary">kaydet</button>
 </form>
