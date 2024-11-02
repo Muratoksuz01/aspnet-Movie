@@ -5,12 +5,19 @@ using System.Collections.Generic;
 
 namespace movieApp_Web.ViewComponents
 {
-    public class GenresViewComponent : ViewComponent
+  public class GenresViewComponent : ViewComponent
+  {
+
+    private readonly MovieContext _context;
+
+    public GenresViewComponent(MovieContext context)
     {
-        public IViewComponentResult Invoke()
-        {
-          ViewBag.SelectId=RouteData.Values["id"];
-        return View(GenreRepository.Genres);
-        }
+      _context = context;
     }
+    public IViewComponentResult Invoke()
+    {
+      ViewBag.SelectId = RouteData.Values["id"];
+      return View(_context.Genres.ToList());
+    }
+  }
 }

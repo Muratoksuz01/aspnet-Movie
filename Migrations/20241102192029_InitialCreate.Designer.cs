@@ -11,7 +11,7 @@ using movieApp_Web.Data;
 namespace movieApp_Web.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20241102155222_InitialCreate")]
+    [Migration("20241102192029_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
