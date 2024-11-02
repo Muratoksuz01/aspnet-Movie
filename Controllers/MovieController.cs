@@ -84,7 +84,7 @@ public class MovieController : Controller
             Console.WriteLine("crete if ici");
             MovieRapository.Add(m);
             Console.Write("eklendi");
-            TempData["Message"] = "item CREATED";
+            TempData["Message"] = $"item CREATED eklenen film :{m.Title}";
             return RedirectToAction("List");
         }
         ViewBag.Genres = GenreRepository.Genres;

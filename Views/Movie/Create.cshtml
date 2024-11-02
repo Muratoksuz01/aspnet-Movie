@@ -21,6 +21,8 @@
     <div class="form-group">
         <label asp-for="Imageurl"></label>
         <input asp-for="Imageurl" class="form-control">
+        <span asp-validation-for="Imageurl" class=" text-danger"></span>
+
     </div>
     <div class="form-group">
         <label asp-for="GenreId"></label>
@@ -31,6 +33,8 @@
                 <option value="@item.GenreId">@item.Name</option>
             }
         </select>
+        <span asp-validation-for="GenreId" class=" text-danger"></span>
+
     </div>
     <button type="submit" class="btn btn-primary">kaydet</button>
 </form>

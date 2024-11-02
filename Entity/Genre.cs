@@ -1,7 +1,7 @@
 
 
 
-namespace movieApp_Web.Models
+namespace movieApp_Web.Entity
 {
     public class Genre
     {
