@@ -90,7 +90,7 @@ public class MovieController : Controller
             TempData["Message"] = $"item CREATED eklenen film :{m.Title}";
             return RedirectToAction("List");
         }
-        ViewBag.Genres = GenreRepository.Genres;
+        ViewBag.Genres = _context.Genres.ToList();
         return View();
 
     }

@@ -20,7 +20,6 @@ namespace movieApp_Web.Data
                                 MovieId=1,
                                 Title="The Silent Storm",
                                 Description="A gripping drama about a young woman finding her voice amidst family struggles.",
-                                Director="Olivia Brown",
                                 Imageurl="film1.jpg",
                                 GenreId=3
                             },
@@ -28,7 +27,6 @@ namespace movieApp_Web.Data
                                 MovieId=2,
                                 Title="Echoes of Eternity",
                                 Description="A suspense thriller that dives into the mysterious disappearance of a scientist.",
-                                Director="James Black",
                                 Imageurl="film2.jpg",
                                 GenreId=2
                             },
@@ -36,7 +34,6 @@ namespace movieApp_Web.Data
                                 MovieId=3,
                                 Title="The Lost Kingdom",
                                 Description="An epic adventure of a prince seeking his lost homeland across mystical lands.",
-                                Director="Steven Chan",
                                 Imageurl="film3.jpg",
                                 GenreId=1
                             },
@@ -44,7 +41,6 @@ namespace movieApp_Web.Data
                                 MovieId=4,
                                 Title="Autumn's Embrace",
                                 Description="A heartfelt romance that explores love and loss in a small coastal town.",
-                                Director="Maria Lopez",
                                 Imageurl="film4.jpg",
                                 GenreId=4
                             },
@@ -52,7 +48,6 @@ namespace movieApp_Web.Data
                                 MovieId=5,
                                 Title="Beyond the Horizon",
                                 Description="An inspiring story of an astronaut's journey back to Earth after a failed mission.",
-                                Director="Daniel Lee",
                                 Imageurl="film1.jpg",
                                 GenreId=2
                             },
@@ -60,7 +55,6 @@ namespace movieApp_Web.Data
                                 MovieId=6,
                                 Title="Legacy of the Brave",
                                 Description="A historical epic chronicling the life of a legendary war hero.",
-                                Director="Christopher Scott",
                                 Imageurl="film2.jpg",
                                 GenreId=1
                             },
@@ -68,7 +62,6 @@ namespace movieApp_Web.Data
                                 MovieId=7,
                                 Title="Whispers in the Dark",
                                 Description="A horror film that unveils the haunting secrets of an old mansion.",
-                                Director="Linda Roberts",
                                 Imageurl="film3.jpg",
                                 GenreId=5
                             },
@@ -76,7 +69,6 @@ namespace movieApp_Web.Data
             MovieId=8,
             Title="City Lights",
             Description="A documentary following the life of street artists in the heart of New York City.",
-            Director="Michael Adams",
             Imageurl="film4.jpg",
             GenreId=6
         }
