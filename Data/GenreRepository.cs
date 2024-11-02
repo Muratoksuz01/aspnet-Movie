@@ -1,5 +1,6 @@
 
 
+using movieApp_Web.Entity;
 using movieApp_Web.Models;
 
 namespace movieApp_Web.Data{

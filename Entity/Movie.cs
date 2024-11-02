@@ -4,13 +4,16 @@ using System.ComponentModel.DataAnnotations;
 namespace movieApp_Web.Entity
 {
     public class Movie
-    {    // buradaki tum attribute ezberleme 'data annotations '
-        public int MovieId { get; set; }
-        public string? Title { get; set; }
-        public string? Description { get; set; }
+    {    // buradaki tum attribute ezberleme 'data annotations ' diye arat 
+        [Required]
+            public int MovieId { get; set; }
+        [Required]
+            public string? Title { get; set; }
+        [MaxLength(500)]
+            public string? Description { get; set; }
         public string? Director { get; set; }
-        public string[]? Players { get; set; }
         public string? Imageurl { get; set; }
-        public int GenreId { get; set; }
+        [Required]
+            public int GenreId { get; set; }
     }
 }

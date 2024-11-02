@@ -1,6 +1,7 @@
 
 
 using System.Reflection.Metadata.Ecma335;
+using movieApp_Web.Entity;
 using movieApp_Web.Models;
 
 namespace movieApp_Web.Data
@@ -16,7 +17,6 @@ namespace movieApp_Web.Data
             Title="The Silent Storm",
             Description="A gripping drama about a young woman finding her voice amidst family struggles.",
             Director="Olivia Brown",
-            Players=new string[]{ "Emma Stone","Ryan Gosling"},
             Imageurl="film1.jpg",
             GenreId=3
         },
@@ -25,7 +25,6 @@ namespace movieApp_Web.Data
             Title="Echoes of Eternity",
             Description="A suspense thriller that dives into the mysterious disappearance of a scientist.",
             Director="James Black",
-            Players=new string[]{ "Robert Downey Jr.","Scarlett Johansson"},
             Imageurl="film2.jpg",
             GenreId=2
         },
@@ -34,7 +33,6 @@ namespace movieApp_Web.Data
             Title="The Lost Kingdom",
             Description="An epic adventure of a prince seeking his lost homeland across mystical lands.",
             Director="Steven Chan",
-            Players=new string[]{ "Chris Hemsworth","Zoe Saldana"},
             Imageurl="film3.jpg",
             GenreId=1
         },
@@ -43,7 +41,6 @@ namespace movieApp_Web.Data
             Title="Autumn's Embrace",
             Description="A heartfelt romance that explores love and loss in a small coastal town.",
             Director="Maria Lopez",
-            Players=new string[]{ "Anne Hathaway","Jake Gyllenhaal"},
             Imageurl="film4.jpg",
             GenreId=4
         },
@@ -52,7 +49,6 @@ namespace movieApp_Web.Data
             Title="Beyond the Horizon",
             Description="An inspiring story of an astronaut's journey back to Earth after a failed mission.",
             Director="Daniel Lee",
-                       Players=new string[]{ "Tom Hanks","Sandra Bullock"},
             Imageurl="film1.jpg",
             GenreId=2
         },
@@ -61,7 +57,6 @@ namespace movieApp_Web.Data
             Title="Legacy of the Brave",
             Description="A historical epic chronicling the life of a legendary war hero.",
             Director="Christopher Scott",
-            Players=new string[]{ "Russell Crowe","Cate Blanchett"},
             Imageurl="film2.jpg",
             GenreId=1
         },
@@ -70,7 +65,6 @@ namespace movieApp_Web.Data
             Title="Whispers in the Dark",
             Description="A horror film that unveils the haunting secrets of an old mansion.",
             Director="Linda Roberts",
-            Players=new string[]{ "Emily Blunt","John Krasinski"},
             Imageurl="film3.jpg",
             GenreId=5
         },
@@ -79,7 +73,6 @@ namespace movieApp_Web.Data
             Title="City Lights",
             Description="A documentary following the life of street artists in the heart of New York City.",
             Director="Michael Adams",
-            Players=new string[]{ "Various Artists"},
             Imageurl="film4.jpg",
             GenreId=6
         }

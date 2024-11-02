@@ -6,19 +6,19 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using movieApp_Web.Data;
+using movieApp_Web.Entity;
 using movieApp_Web.Models;
 
 namespace movieApp_Web.Controllers;
 
 public class MovieController : Controller
 {
-    private readonly ILogger<MovieController> _logger;
+    private  readonly MovieContext _context;
 
-    public MovieController(ILogger<MovieController> logger)
+    public MovieController( MovieContext context)
     {
-        _logger = logger;
+        _context=context;
     }
-
     public IActionResult Index()
     {
         Console.WriteLine("index movies");
@@ -34,30 +34,30 @@ public class MovieController : Controller
         // var controller= RouteData.Values["controller"];
         // var action= RouteData.Values["action"];
         // var genreid= RouteData.Values["id"];
-        var movies = MovieRapository.Movies;
+        var movies = _context.Movies.AsQueryable();// buradan gelen biligiyi filteyebilir sekilde getiriyor 
         if (id != null)
         {
-            movies = movies.Where(m => m.GenreId == id).ToList();
+            movies = movies.Where(m => m.GenreId == id);
         }
         if (!string.IsNullOrEmpty(q))
         {
             movies = movies.Where(
             m => m.Title.ToLower().Contains(q.ToLower()) ||
-            m.Description.ToLower().Contains(q.ToLower())).ToList();
+            m.Description.ToLower().Contains(q.ToLower()));
         }
         var model = new MovieViewModel()
         {
-            Movies = movies
+            Movies = movies.ToList()
         };
         return View("Movies", model);
     }
 
     //http://localhost:5076/Movie/Details/1
-    public IActionResult Details(int id) => View(MovieRapository.GetById(id));
+    public IActionResult Details(int id) => View(_context.Movies.Find(id));
 
     public IActionResult Create()
     {
-        ViewBag.Genres = GenreRepository.Genres; //benim yontem burada farklı bir yotem denedim bu yuzden create.cshtml de farklılık var 
+        ViewBag.Genres = _context.Genres.ToList(); //benim yontem burada farklı bir yotem denedim bu yuzden create.cshtml de farklılık var 
         return View();
     }
 
@@ -81,8 +81,11 @@ public class MovieController : Controller
 
         if (ModelState.IsValid)
         {
-            Console.WriteLine("crete if ici");
-            MovieRapository.Add(m);
+
+            _context.Movies.Add(m);
+            _context.SaveChanges(); 
+            // Console.WriteLine("crete if ici");
+            // MovieRapository.Add(m);
             Console.Write("eklendi");
             TempData["Message"] = $"item CREATED eklenen film :{m.Title}";
             return RedirectToAction("List");
@@ -95,8 +98,8 @@ public class MovieController : Controller
     public IActionResult Edit(int id)
     {
         //  ViewBag.Genres=GenreRepository.Genres; //benim yontem
-        ViewBag.Genres = new SelectList(GenreRepository.Genres, "GenreId", "Name"); //hocanın yontemi
-        var m = MovieRapository.GetById(id);
+        ViewBag.Genres = new SelectList(_context.Genres.ToList(), "GenreId", "Name"); //hocanın yontemi
+        var m = _context.Movies.Find(id);
         return View(m);
     }
     [HttpPost]
@@ -112,20 +115,25 @@ public class MovieController : Controller
 
         if (ModelState.IsValid)
         {
-            MovieRapository.Edit(n);
+            _context.Movies.Update(n);
+                        _context.SaveChanges(); 
+
+          //  MovieRapository.Edit(n);
             TempData["Message"] = "item guncellendi";
             return RedirectToAction("Details", new { @id = n.MovieId });
 
 
         }
-        ViewBag.Genres = new SelectList(GenreRepository.Genres, "GenreId", "Name"); //hocanın yontemi
+        ViewBag.Genres = new SelectList(_context.Genres.ToList(), "GenreId", "Name"); //hocanın yontemi
         return View(n);
     }
 
 
     public IActionResult Delete(int id)
     {
-        MovieRapository.Del(id);
+        _context.Movies.Remove(_context.Movies.Find(id));
+                    _context.SaveChanges(); 
+
         Console.WriteLine("dele foksiyonu");
         TempData["Message"] = "item silindi";
         return RedirectToAction("List");
@@ -134,9 +142,5 @@ public class MovieController : Controller
     }
 
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
+   
 }

@@ -7,11 +7,11 @@ namespace movieApp_Web.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private  readonly MovieContext _context;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController( MovieContext context)
     {
-        _logger = logger;
+        _context=context;
     }
 
     public IActionResult About()
@@ -22,7 +22,7 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         var model=new HomePageViewModel(){
-            PopulerMovies= MovieRapository.Movies
+            PopulerMovies= _context.Movies.ToList()
         };
     
         return View(model);
@@ -31,9 +31,4 @@ public class HomeController : Controller
 
 
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
 }
