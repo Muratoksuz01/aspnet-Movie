@@ -21,12 +21,13 @@
         <span asp-validation-for="Imageurl" class=" text-danger"></span>
 
     </div>
+@*     
     <div class="form-group">
         <label asp-for="GenreId"></label>
-        <select asp-for="GenreId" class="form-control" asp-items="@ViewBag.Genres"> @* hocanın yontemi *@
+        <select asp-for="GenreId" class="form-control" asp-items="@ViewBag.Genres"> hocanin yontemi burasyı sonra yorum yap
             <option selected disabled>seciniz</option>
         </select>
-        <span asp-validation-for="GenreId" class=" text-danger"></span>
+        <span asp-validation-for="GenreId" class=" text-danger"></span> *@
 
         @* benim yontem
         <select asp-for="GenreId" class="form-control">
@@ -36,6 +37,6 @@
         <option value="@item.GenreId">@item.Name</option>
         }
         </select> *@
-    </div>
+    @* </div> *@
     <button type="submit" class="btn btn-primary">kaydet</button>
 </form>

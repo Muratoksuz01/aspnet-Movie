@@ -11,7 +11,7 @@ using movieApp_Web.Data;
 namespace movieApp_Web.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20241102192029_InitialCreate")]
+    [Migration("20241103091848_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -23,6 +23,31 @@ namespace movieApp_Web.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
+
+            modelBuilder.Entity("movieApp_Web.Entity.Director", b =>
+                {
+                    b.Property<int>("DirectorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("DirectorId"));
+
+                    b.Property<string>("Biography")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("DirectorId");
+
+                    b.ToTable("Directors");
+                });
 
             modelBuilder.Entity("movieApp_Web.Entity.Genre", b =>
                 {
@@ -52,9 +77,6 @@ namespace movieApp_Web.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(500)
                         .HasColumnType("varchar(500)");
-
-                    b.Property<string>("Director")
-                        .HasColumnType("longtext");
 
                     b.Property<int>("GenreId")
                         .HasColumnType("int");

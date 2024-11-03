@@ -5,6 +5,7 @@ using System.Reflection.Metadata.Ecma335;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using movieApp_Web.Data;
 using movieApp_Web.Entity;
 using movieApp_Web.Models;
@@ -37,7 +38,9 @@ public class MovieController : Controller
         var movies = _context.Movies.AsQueryable();// buradan gelen biligiyi filteyebilir sekilde getiriyor 
         if (id != null)
         {
-            movies = movies.Where(m => m.GenreId == id);
+            movies = movies
+            .Include(m=>m.Genres)
+            .Where(m => m.Genres.Any(g=>g.GenreId==id));
         }
         if (!string.IsNullOrEmpty(q))
         {

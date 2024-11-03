@@ -1,8 +1,4 @@
-
-
-
 using System.ComponentModel.DataAnnotations;
-
 namespace movieApp_Web.Entity
 {
     public class Genre
@@ -10,5 +6,6 @@ namespace movieApp_Web.Entity
         public int GenreId { get; set; }
         [Required]
         public string? Name { get; set; }
+         public List<Movie>? Movies { get; set; }
     }
 }

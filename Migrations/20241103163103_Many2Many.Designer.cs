@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using movieApp_Web.Data;
 
@@ -10,9 +11,11 @@ using movieApp_Web.Data;
 namespace movieApp_Web.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    partial class MovieContextModelSnapshot : ModelSnapshot
+    [Migration("20241103163103_Many2Many")]
+    partial class Many2Many
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,21 +23,6 @@ namespace movieApp_Web.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
-
-            modelBuilder.Entity("GenreMovie", b =>
-                {
-                    b.Property<int>("GenresGenreId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MoviesMovieId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GenresGenreId", "MoviesMovieId");
-
-                    b.HasIndex("MoviesMovieId");
-
-                    b.ToTable("GenreMovie");
-                });
 
             modelBuilder.Entity("movieApp_Web.Entity.Cast", b =>
                 {
@@ -45,12 +33,14 @@ namespace movieApp_Web.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("CastId"));
 
                     b.Property<string>("Character")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("MovieId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("PersonId")
@@ -74,6 +64,7 @@ namespace movieApp_Web.Migrations
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("CrewId"));
 
                     b.Property<string>("Job")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("MovieId")
@@ -120,6 +111,9 @@ namespace movieApp_Web.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("varchar(500)");
 
+                    b.Property<int>("GenreId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Imageurl")
                         .HasColumnType("longtext");
 
@@ -128,6 +122,8 @@ namespace movieApp_Web.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("MovieId");
+
+                    b.HasIndex("GenreId");
 
                     b.ToTable("Movies");
                 });
@@ -191,21 +187,6 @@ namespace movieApp_Web.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("GenreMovie", b =>
-                {
-                    b.HasOne("movieApp_Web.Entity.Genre", null)
-                        .WithMany()
-                        .HasForeignKey("GenresGenreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("movieApp_Web.Entity.Movie", null)
-                        .WithMany()
-                        .HasForeignKey("MoviesMovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("movieApp_Web.Entity.Cast", b =>
                 {
                     b.HasOne("movieApp_Web.Entity.Movie", "Movie")
@@ -242,6 +223,17 @@ namespace movieApp_Web.Migrations
                     b.Navigation("Movie");
 
                     b.Navigation("Person");
+                });
+
+            modelBuilder.Entity("movieApp_Web.Entity.Movie", b =>
+                {
+                    b.HasOne("movieApp_Web.Entity.Genre", "Genre")
+                        .WithMany()
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Genre");
                 });
 
             modelBuilder.Entity("movieApp_Web.Entity.Person", b =>
