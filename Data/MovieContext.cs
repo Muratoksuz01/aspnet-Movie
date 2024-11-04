@@ -3,7 +3,7 @@ using movieApp_Web.Entity;
 
 namespace movieApp_Web.Data
 {
-    public class MovieContext : DbContext
+    public class MovieContext : DbContext 
     {
 
         public MovieContext(DbContextOptions<MovieContext> options):base(options)
