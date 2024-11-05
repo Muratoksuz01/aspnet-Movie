@@ -5,8 +5,7 @@ VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "movieApp-Web", "movieApp-Web.csproj", "{4814D5B3-FF21-42E1-80AE-1E950593729D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "northwindProject", "northwindProject\northwindProject.csproj", "{9E1772DD-78C3-4870-BFAA-77EEEBC680B6}"
-EndProject
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

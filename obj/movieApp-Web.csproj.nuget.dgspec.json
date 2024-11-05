@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\denem\\Documents\\C#\\aspnet-Movie\\movieApp-Web.csproj": {}
+    "C:\\Users\\denem\\Documents\\C#\\process\\aspnet-Movie\\movieApp-Web.csproj": {}
   },
   "projects": {
-    "C:\\Users\\denem\\Documents\\C#\\aspnet-Movie\\movieApp-Web.csproj": {
+    "C:\\Users\\denem\\Documents\\C#\\process\\aspnet-Movie\\movieApp-Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\denem\\Documents\\C#\\aspnet-Movie\\movieApp-Web.csproj",
+        "projectUniqueName": "C:\\Users\\denem\\Documents\\C#\\process\\aspnet-Movie\\movieApp-Web.csproj",
         "projectName": "movieApp-Web",
-        "projectPath": "C:\\Users\\denem\\Documents\\C#\\aspnet-Movie\\movieApp-Web.csproj",
+        "projectPath": "C:\\Users\\denem\\Documents\\C#\\process\\aspnet-Movie\\movieApp-Web.csproj",
         "packagesPath": "C:\\Users\\denem\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\denem\\Documents\\C#\\aspnet-Movie\\obj\\",
+        "outputPath": "C:\\Users\\denem\\Documents\\C#\\process\\aspnet-Movie\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\denem\\AppData\\Roaming\\NuGet\\NuGet.Config"
