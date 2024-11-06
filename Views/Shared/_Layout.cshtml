@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/movieApp_Web.styles.css" asp-append-version="true" />
+  
 </head>
 
 <body>
-    @RenderSection("message",false)
+    @RenderSection("message", false)
     @await Html.PartialAsync("_navbar")
     @RenderSection("_header", false)
     @if (IsSectionDefined("menu"))
@@ -19,7 +20,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
-                    @RenderSection("menu",false)
+                    @RenderSection("menu", false)
                 </div>
                 <div class="col-md-9">
                     @RenderBody()
@@ -37,7 +38,6 @@
             </div>
         </div>
     }
-
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

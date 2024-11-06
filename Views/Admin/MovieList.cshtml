@@ -14,23 +14,28 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(var movie in Model.Movies){
-        <tr>
-            <td>@movie.MovieId</td>
-            <td><img width="80" src="~/img/@movie.ImageUrl" alt=""></td>
-            <td>@movie.Title</td>
-            <td>
-                <ul>
-                    @foreach(var item in movie.Genres){
-                        <li>@item.Name</li>
-                    }
-                </ul>
-            </td>
-            <td>
-                <a href="/admin/movieUpdate/@movie.MovieId" class="btn btn-primary btn-sm">Update</a>
-                <a href="/admin/movieDelete/@movie.MovieId" class="btn btn-danger btn-sm">Delete</a>
-            </td>
-        </tr>
+        @foreach (var movie in Model.Movies)
+        {
+            <tr>
+                <td>@movie.MovieId</td>
+                <td><img width="80" src="~/img/@movie.ImageUrl" alt=""></td>
+                <td>@movie.Title</td>
+                <td>
+                    <ul>
+                        @foreach (var item in movie.Genres)
+                        {
+                            <li>@item.Name</li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                    <a href="/admin/movieUpdate/@movie.MovieId" class="btn btn-primary btn-sm">Update</a>
+                    <form asp-action="DeleteMovie" asp-controller="Admin" class="d-inline" method="post">
+                        <input type="hidden" name="MovieId" value="@movie.MovieId">
+                        <button class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
 
         }
     </tbody>

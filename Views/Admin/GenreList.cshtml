@@ -17,8 +17,11 @@
         <td>@genre.Name</td>
         <td>@genre.Count </td>
         <td>
-            <a href="/admin/UpdateGenre/@genre.GenreId" class="btn btn-primary btn-sm">Update</a>
-            <a href="/admin/DeleteGenre/@genre.GenreId" class="btn btn-danger btn-sm">Delete</a>
+            <a href="/Admin/UpdateGenre/@genre.GenreId" class="btn btn-primary btn-sm">Update</a>
+            <form asp-action="DeleteGenre" asp-controller="Admin"  class="d-inline" method="post">
+                <input type="hidden" name="GenreId" value="@genre.GenreId">
+                <button class="btn btn-danger btn-sm">Delete</button>
+            </form>
         </td>
        </tr>
        }

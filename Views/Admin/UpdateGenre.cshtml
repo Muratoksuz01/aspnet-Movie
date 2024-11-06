@@ -1,7 +1,9 @@
 @model AdminGenreEditViewModel
 <h1>edit genre</h1>
 <hr>
-<form action="">
+@* asp-action="UpdateGenre" asp-controller="Admin" *@
+<form action="/Admin/UpdateGenre" method="post">
+
     <div class="row">
         <div class="col-md-3">
             <div class="form-group">
@@ -12,31 +14,37 @@
         </div>
         <div class="col-md-9">
             <table class="table table-striped table-hover tabel-bordered">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Image</th>
-            <th>Title</th>
-            <th>Genres</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var movie in Model.Movies){
-        <tr>
-            <td>@movie.MovieId</td>
-            <td><img width="80" src="~/img/@movie.ImageUrl" alt=""></td>
-            <td>@movie.Title</td>
-            
-            <td>
-                <a href="/admin/movieUpdate/@movie.MovieId" class="btn btn-primary btn-sm">Update</a>
-                <a href="/admin/movieDelete/@movie.MovieId" class="btn btn-danger btn-sm">Delete</a>
-            </td>
-        </tr>
+                <thead>
+                    <tr>
+                        <th>Remove</th>
+                        <th>#</th>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Genres</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var movie in Model.Movies)
+                    {
+                        <tr>
+                            <td><input type="checkbox" name="movieIds" value="@movie.MovieId" class="form-check-input"></td>
+                            <td>@movie.MovieId</td>
+                            <td><img width="80" src="~/img/@movie.ImageUrl" alt=""></td>
+                            <td>@movie.Title</td>
 
-        }
-    </tbody>
-</table>
+                            <td>
+                                <a href="/admin/movieUpdate/@movie.MovieId" class="btn btn-primary btn-sm">Update</a>
+                                @* <form asp-action="DeleteGenre" asp-controller="Admin" class="d-inline" method="post">
+                                    <input type="hidden" name="GenreId" value="@genre.GenreId">
+                                    <button class="btn btn-danger btn-sm">Delete</button>
+                                </form> *@
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 </form>

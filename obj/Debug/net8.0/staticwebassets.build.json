@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "znWvr+TZgycrK7nBpHUG8Coa4WsD6ZcDZ54dcE9NCrM=",
+  "Hash": "7EUBkCjVDWwg1nbntTm/4p+b5CjEm9x2Cs/R0sBjJ6Q=",
   "Source": "movieApp-Web",
   "BasePath": "_content/movieApp-Web",
   "Mode": "Default",
@@ -148,6 +148,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\800.svg"
+    },
+    {
+      "Identity": "C:\\Users\\denem\\Documents\\C#\\process\\aspnet-Movie\\wwwroot\\img\\e7ddec27-0900-42bd-8055-b77e7d9cf6aa.png",
+      "SourceId": "movieApp-Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\denem\\Documents\\C#\\process\\aspnet-Movie\\wwwroot\\",
+      "BasePath": "_content/movieApp-Web",
+      "RelativePath": "img/e7ddec27-0900-42bd-8055-b77e7d9cf6aa.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\e7ddec27-0900-42bd-8055-b77e7d9cf6aa.png"
     },
     {
       "Identity": "C:\\Users\\denem\\Documents\\C#\\process\\aspnet-Movie\\wwwroot\\img\\film1.jpg",

@@ -1,10 +1,7 @@
 @model AdminMoviesModelEdit
-<form asp-action="movieUpdate" asp-controller="Admin" method="post"
-  enctype="multipart/form-data" 
- >
+<form asp-action="movieCreate" asp-controller="Admin" method="post">
     <div class="row">
         <div class="col-md-8">
-            <input type="hidden" name="MovieId" value="@Model.MovieId">
             <div class="form-group">
                 <label asp-for="Title"></label>
                 <input asp-for="Title" class="form-control">
@@ -17,9 +14,9 @@
 
             </div>
 
-            <div class="mb-3">
-                <label for="formFile" class="form-label">Default file input example</label>
-                <input class="form-control" name="file" type="file" id="formFile">
+            <div class="form-group">
+                <label asp-for="ImageUrl"></label>
+                <input asp-for="ImageUrl" class="form-control">
             </div>
 
             <button type="submit" class="btn btn-primary">kaydet</button>
@@ -29,20 +26,18 @@
             @foreach (var item in (List<Genre>)ViewBag.Genres)
             {
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="genreids" value="@item.GenreId" id="@item.GenreId"
-                    @(Model.SelectedGenres.Any(g => g.GenreId == item.GenreId) ? "checked" : "")>
+                    <input class="form-check-input" 
+                        type="checkbox" 
+                        name="genreids"
+                        value="@item.GenreId" 
+                        id="@item.GenreId" 
+                    >
                     <label class="form-check-label" for="@item.GenreId">
                         @item.Name
                     </label>
                 </div>
             }
-            <hr>
-            <img src="~/img/@Model.ImageUrl">
         </div>
     </div>
 
 </form>
-
-@section Scripts{
-
-}
