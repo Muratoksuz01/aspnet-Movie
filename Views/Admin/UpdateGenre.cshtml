@@ -3,7 +3,7 @@
 <hr>
 @* asp-action="UpdateGenre" asp-controller="Admin" *@
 <form action="/Admin/UpdateGenre" method="post">
-
+    <input type="hidden" name="genreId" value="@Model.GenreId">
     <div class="row">
         <div class="col-md-3">
             <div class="form-group">

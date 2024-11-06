@@ -7,15 +7,9 @@ using movieApp_Web.Data;
 using movieApp_Web.Entity;
 using movieApp_Web.Models;
 /*
-ana sayfadaki edit ve delete calişmıyor 
-5076/Movie/List bu sayfada edit ve delete calişmıyor 
-admin create calişiyor 
- calhost:5076/Admin/MovieList update delete ama suan genre  bilgisi olmayan  calişiyor 
- ama genre olan movie silindiginde hata veriyor 
 
 
- uan genre silindiginde hata vermiyor
- film kısmında 1 haricindekiler sildiginde sorun yok  
+ film kısmında 1 haricindekiler sildiginde sorun yok 
 */
 namespace movieApp_Web.Controllers;
 
@@ -53,7 +47,7 @@ public class AdminController : Controller
         return View();
     }
     [HttpPost]
-    public IActionResult movieCreate(Movie m, int[] genreIds)
+    public async Task<IActionResult> movieCreate(Movie m, int[] genreIds , IFormFile file)
     {
         if (ModelState.IsValid)
         {
@@ -63,6 +57,18 @@ public class AdminController : Controller
                 m.Genres.Add(_context.Genres.FirstOrDefault(i => i.GenreId == item));
 
             }
+            if(file !=null){
+                var extension=Path.GetExtension(file.FileName);
+                var FileName=string.Format($"{Guid.NewGuid()}{extension}");
+                var path=Path.Combine(Directory.GetCurrentDirectory(),"wwwroot\\img",FileName);
+                m.Imageurl =FileName;
+                using(var stream =new FileStream(path,FileMode.Create)){
+                    await file.CopyToAsync(stream);
+                }
+            }
+
+
+
             _context.Movies.Add(m);
             _context.SaveChanges();
             return RedirectToAction("MovieList");
@@ -159,12 +165,12 @@ public class AdminController : Controller
 
    
     [HttpPost]
-    public IActionResult UpdateGenre(AdminGenreEditViewModel model, int[]? movieIds)
+    public IActionResult UpdateGenre(AdminGenreEditViewModel model, int[]? movieIds, int? genreId)
     {//                         genreId surekli 0 olarak geliyor  aslında model null olarka geliyor 
      
 
         Console.WriteLine("      burada post calişti ");
-        var entity = _context.Genres.Include(m => m.Movies).FirstOrDefault(m => m.GenreId == model.GenreId);
+        var entity = _context.Genres.Include(m => m.Movies).FirstOrDefault(m => m.GenreId ==genreId);
       //  if (entity == null) return NotFound();
         entity.Name = model.Name;
         foreach (var id in movieIds)
