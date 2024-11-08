@@ -8,11 +8,21 @@
 @section _header {
   @await Html.PartialAsync("_headers")
 }
+@if (Model.PopulerMovies.Count() > 0)
+{
 
-<h2> Film listesi</h2>
-<div id="filmler">
-  @foreach (var item in Model.PopulerMovies)
-  {
-    @await Html.PartialAsync("_movie", item)
-  }
-</div>
+
+  <h2> Film listesi</h2>
+  <div id="filmler">
+    @foreach (var item in Model.PopulerMovies)
+    {
+      @await Html.PartialAsync("_movie", item)
+    }
+  </div>
+}
+else
+{
+  <div class="alert alert-warning">
+    film bulunamadı
+  </div>
+}

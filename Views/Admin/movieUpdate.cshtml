@@ -1,9 +1,8 @@
 @model AdminMoviesModelEdit
-<form asp-action="movieUpdate" asp-controller="Admin" method="post"
-  enctype="multipart/form-data" 
- >
+<form asp-action="movieUpdate" asp-controller="Admin" method="post" enctype="multipart/form-data">
     <div class="row">
         <div class="col-md-8">
+            <div asp-validation-summary="All"></div>
             <input type="hidden" name="MovieId" value="@Model.MovieId">
             <div class="form-group">
                 <label asp-for="Title"></label>
@@ -17,30 +16,32 @@
 
             </div>
 
+            <input type="hidden" name="ImageUrl" value="@Model.ImageUrl">
             <div class="mb-3">
                 <label for="formFile" class="form-label">Default file input example</label>
-                <input class="form-control" name="file" type="file" id="formFile">
+                <input class="form-control" type="file" name="file" id="formFile">
             </div>
 
             <button type="submit" class="btn btn-primary">kaydet</button>
         </div>
         <div class="col-md-4">
-
-            @foreach (var item in (List<Genre>)ViewBag.Genres)
+            @if (ViewBag.Genres != null)
             {
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="genreids" value="@item.GenreId" id="@item.GenreId"
-                    @(Model.SelectedGenres.Any(g => g.GenreId == item.GenreId) ? "checked" : "")>
-                    <label class="form-check-label" for="@item.GenreId">
-                        @item.Name
-                    </label>
-                </div>
+               @foreach (var item in ViewBag.Genres)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="genreids" value="@item.GenreId" id="@item.GenreId"
+                        @( Model.GenreIds!=null? Model.GenreIds.Any(g => g == item.GenreId) ? "checked" : "":"")>
+                        <label class="form-check-label" for="@item.GenreId">
+                            @item.Name
+                        </label>
+                    </div>
+                }
             }
+            <span asp-validation-for="GenreIds"></span>
             <hr>
             <img src="~/img/@Model.ImageUrl">
         </div>
     </div>
 
 </form>
-
-

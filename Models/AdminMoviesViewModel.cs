@@ -1,3 +1,5 @@
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 using movieApp_Web.Entity;
 
@@ -18,10 +20,32 @@ namespace movieApp_Web.Models
     public class AdminMoviesModelEdit
     {
         public int MovieId { get; set; }
-        public string Title { get; set; }
-        public string ImageUrl { get; set; }
+
+        [Display(Name = "Film Adı")]
+        [Required(ErrorMessage = "mesaj baslıgı girmelisiniz ")]
+        public string? Title { get; set; }
+        [Required(ErrorMessage = "mesaj acıklama girmelisiniz  ")]
         public string Description { get; set; }
-        public List<Genre> SelectedGenres { get; set; }
+        public string ImageUrl { get; set; }
+
+        [Required(ErrorMessage = "Lütfen bir tur seçin.")]
+        public int[] GenreIds { get; set; }
 
     }
+
+    public class AdminCreateViewModel
+    {
+        [Display(Name = "Film Adı")]
+        [Required(ErrorMessage = "mesaj baslıgı girmelisiniz ")]
+        public string Title { get; set; }
+        [Required(ErrorMessage = "mesaj acıklama girmelisiniz  ")]
+        public string Description { get; set; }
+
+        [Required(ErrorMessage = "Lütfen bir dosya seçin.")]
+        public IFormFile file { get; set; }
+        [Required(ErrorMessage = "Lütfen bir tur seçin.")]
+        public int[] GenreIds { get; set; }
+
+    }
+
 }

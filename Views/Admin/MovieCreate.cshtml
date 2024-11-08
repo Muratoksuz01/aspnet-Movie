@@ -1,7 +1,8 @@
-@model AdminMoviesModelEdit
-<form asp-action="movieCreate" asp-controller="Admin" method="post" enctype="multipart/form-data" >
+@model AdminCreateViewModel
+<form asp-action="movieCreate" asp-controller="Admin" method="post" enctype="multipart/form-data">
     <div class="row">
         <div class="col-md-8">
+            <div asp-validation-summary="All"></div>
             <div class="form-group">
                 <label asp-for="Title"></label>
                 <input asp-for="Title" class="form-control">
@@ -14,9 +15,10 @@
 
             </div>
 
-           <div class="mb-3">
-                <label for="formFile" class="form-label">Default file input example</label>
-                <input class="form-control" name="file" type="file" id="formFile">
+             <div class="mb-3">
+                <label asp-for="file" class="form-label">Film Dosyası</label>
+                <input asp-for="file" class="form-control" type="file">
+                <span asp-validation-for="file" class="text-danger"></span>
             </div>
 
             <button type="submit" class="btn btn-primary">kaydet</button>
@@ -26,17 +28,19 @@
             @foreach (var item in (List<Genre>)ViewBag.Genres)
             {
                 <div class="form-check">
-                    <input class="form-check-input" 
-                        type="checkbox" 
-                        name="genreids"
-                        value="@item.GenreId" 
-                        id="@item.GenreId" 
-                    >
+                    <input class="form-check-input"
+                    type="checkbox"
+                    name="GenreIds"
+                    value="@item.GenreId"
+                    id="@item.GenreId"
+
+                    @(Model.GenreIds != null && Model.GenreIds.Any(i=>i ==item.GenreId) ? "checked" : "")>
                     <label class="form-check-label" for="@item.GenreId">
                         @item.Name
                     </label>
                 </div>
             }
+            <span asp-validation-for="GenreIds" class="text-danger"></span>
         </div>
     </div>
 

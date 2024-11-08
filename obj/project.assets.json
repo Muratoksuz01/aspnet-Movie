@@ -4122,11 +4122,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\denem\\Documents\\C#\\process\\aspnet-Movie\\movieApp-Web.csproj",
+      "projectUniqueName": "c:\\Users\\denem\\Documents\\C#\\process\\aspnet-Movie\\movieApp-Web.csproj",
       "projectName": "movieApp-Web",
-      "projectPath": "C:\\Users\\denem\\Documents\\C#\\process\\aspnet-Movie\\movieApp-Web.csproj",
+      "projectPath": "c:\\Users\\denem\\Documents\\C#\\process\\aspnet-Movie\\movieApp-Web.csproj",
       "packagesPath": "C:\\Users\\denem\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\denem\\Documents\\C#\\process\\aspnet-Movie\\obj\\",
+      "outputPath": "c:\\Users\\denem\\Documents\\C#\\process\\aspnet-Movie\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\denem\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -4195,13 +4195,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json."
-    }
-  ]
+  }
 }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using movieApp_Web.Data;
 
@@ -10,9 +11,11 @@ using movieApp_Web.Data;
 namespace movieApp_Web.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    partial class MovieContextModelSnapshot : ModelSnapshot
+    [Migration("20241107203645_TryToFixDatabase")]
+    partial class TryToFixDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,7 +36,7 @@ namespace movieApp_Web.Migrations
 
                     b.HasIndex("MoviesMovieId");
 
-                    b.ToTable("GenreMovie", (string)null);
+                    b.ToTable("GenreMovie");
                 });
 
             modelBuilder.Entity("movieApp_Web.Entity.Cast", b =>
@@ -62,7 +65,7 @@ namespace movieApp_Web.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("Casts", (string)null);
+                    b.ToTable("Casts");
                 });
 
             modelBuilder.Entity("movieApp_Web.Entity.Crew", b =>
@@ -88,7 +91,7 @@ namespace movieApp_Web.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("Crews", (string)null);
+                    b.ToTable("Crews");
                 });
 
             modelBuilder.Entity("movieApp_Web.Entity.Genre", b =>
@@ -105,7 +108,7 @@ namespace movieApp_Web.Migrations
 
                     b.HasKey("GenreId");
 
-                    b.ToTable("Genres", (string)null);
+                    b.ToTable("Genres");
                 });
 
             modelBuilder.Entity("movieApp_Web.Entity.Movie", b =>
@@ -127,7 +130,7 @@ namespace movieApp_Web.Migrations
 
                     b.HasKey("MovieId");
 
-                    b.ToTable("Movies", (string)null);
+                    b.ToTable("Movies");
                 });
 
             modelBuilder.Entity("movieApp_Web.Entity.Person", b =>
@@ -161,7 +164,7 @@ namespace movieApp_Web.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("People", (string)null);
+                    b.ToTable("People");
                 });
 
             modelBuilder.Entity("movieApp_Web.Entity.User", b =>
@@ -186,7 +189,7 @@ namespace movieApp_Web.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("GenreMovie", b =>
