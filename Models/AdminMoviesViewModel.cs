@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 using movieApp_Web.Entity;
+using movieApp_Web.Validators;
 
 namespace movieApp_Web.Models
 {
@@ -45,6 +46,10 @@ namespace movieApp_Web.Models
         public IFormFile file { get; set; }
         [Required(ErrorMessage = "Lütfen bir tur seçin.")]
         public int[] GenreIds { get; set; }
+        public bool IsClassic { get; set; }
+        [ClassicMovie(1950)]
+        [DataType(DataType.Date)]
+        public DateTime ReleaseDate {get;set;} =DateTime.Now;
 
     }
 

@@ -1,29 +1,46 @@
 @model AdminGenresViewModel
-<h1> admin genres list</h1>
-<table class="table table-striped table-hover table-bordered">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Count</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-       @foreach(var genre in Model.Genres){
-        
-       <tr>
-        <td>@genre.GenreId</td>
-        <td>@genre.Name</td>
-        <td>@genre.Count </td>
-        <td>
-            <a href="/Admin/UpdateGenre/@genre.GenreId" class="btn btn-primary btn-sm">Update</a>
-            <form asp-action="DeleteGenre" asp-controller="Admin"  class="d-inline" method="post">
-                <input type="hidden" name="GenreId" value="@genre.GenreId">
-                <button class="btn btn-danger btn-sm">Delete</button>
-            </form>
-        </td>
-       </tr>
-       }
-    </tbody>
-</table>
+<h1> admin genres </h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateGenre" asp-controller="Admin" method="post">
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">submit</button>
+        </form>
+
+    </div>
+    <div class="col-md-8">
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Count</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var genre in Model.Genres)
+                {
+
+                    <tr>
+                        <td>@genre.GenreId</td>
+                        <td>@genre.Name</td>
+                        <td>@genre.Count </td>
+                        <td>
+                            <a href="/Admin/UpdateGenre/@genre.GenreId" class="btn btn-primary btn-sm">Update</a>
+                            <form asp-action="DeleteGenre" asp-controller="Admin" class="d-inline" method="post">
+                                <input type="hidden" name="GenreId" value="@genre.GenreId">
+                                <button class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+@model UserModel
+<h1>User Model</h1>
+<form asp-action="CreateUser" asp-controller="User" method="post" novalidate>
+    @* novalidate demek html5 kullaılmasın beckend kullanılsın gibi soyle email icin model de attribute belirledik
+      bunu yazmassan html5 korur sayfayı 
+    yazarsan backemd korur sayfayı *@
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label asp-for="UserName"></label>
+                <input class="form-control" asp-for="UserName">
+                <span class="text-danger" asp-validation-for="UserName"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Name"></label>
+                <input class="form-control" asp-for="Name">
+                <span class="text-danger" asp-validation-for="Name"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Email"></label>
+                <input class="form-control" asp-for="Email">
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Password"></label>
+                <input class="form-control" asp-for="Password" type="password">
+                <span class="text-danger" asp-validation-for="Password"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="RePassword"></label>
+                <input class="form-control" asp-for="RePassword" type="password">
+                <span class="text-danger" asp-validation-for="RePassword"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label asp-for="Url"></label>
+                <input class="form-control" asp-for="Url">
+                <span class="text-danger" asp-validation-for="Url"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="BirthDate"></label>
+                <input class="form-control" asp-for="BirthDate">
+                <span class="text-danger" asp-validation-for="BirthDate"></span>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.js"></script>
+
+}

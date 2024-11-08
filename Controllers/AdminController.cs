@@ -89,13 +89,82 @@ public class AdminController : Controller
         return View(m);
     }
 
-
-
-
-
-    public IActionResult GenreList()
+    public IActionResult movieUpdate(int? id)
     {
-        return View(new AdminGenresViewModel
+        if (id == null) return NotFound();
+        if (ModelState.IsValid)
+        {
+            var entity = _context.Movies
+            .Select(m => new AdminMoviesModelEdit
+            {
+                MovieId = m.MovieId,
+                Title = m.Title,
+                Description = m.Description,
+                ImageUrl = m.Imageurl,
+                GenreIds = m.Genres.Select(i => i.GenreId).ToArray()
+            })
+            .FirstOrDefault(m => m.MovieId == id);
+
+            ViewBag.Genres = _context.Genres.ToList();
+
+            if (entity == null) return NotFound();
+
+            return View(entity);
+        }
+        ViewBag.Genres = _context.Genres.ToList();
+        return View();
+
+
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> movieUpdate(AdminMoviesModelEdit model, int[] genreids, IFormFile file)
+    {
+        ModelState.Remove("file");
+
+        if (ModelState.IsValid)
+        {
+            var entity = _context.Movies.Include("Genres").FirstOrDefault(m => m.MovieId == model.MovieId);
+            if (entity == null) return NotFound();
+            entity.Title = model.Title;
+            entity.Description = model.Description;
+
+            if (file != null)
+            {
+                var extension = Path.GetExtension(file.FileName);
+                var FileName = string.Format($"{Guid.NewGuid()}{extension}");
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\img", FileName);
+                entity.Imageurl = FileName;
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+            }
+
+
+
+            entity.Genres = genreids.Select(id => _context.Genres.FirstOrDefault(i => i.GenreId == id)).ToList();
+            _context.SaveChanges();
+            return RedirectToAction("MovieList");
+        }
+
+        var errors = ModelState;
+        foreach (var entry in errors)
+        {
+            System.Console.WriteLine("Key: " + entry.Key);  // Property adı (örneğin: Title, Description)
+            foreach (var item in entry.Value.Errors)
+            {
+                System.Console.WriteLine("Error Message: " + item.ErrorMessage);  // Hata mesajı
+            }
+        }
+
+        ViewBag.Genres = _context.Genres.ToList();
+        return View(model);
+    }
+
+    private AdminGenresViewModel GetGenres()
+    {
+        return new AdminGenresViewModel
         {
             Genres = _context.Genres.Select(g => new AdminGenreViewModel
             {
@@ -103,49 +172,36 @@ public class AdminController : Controller
                 Name = g.Name,
                 Count = g.Movies.Count
             }).ToList()
-        });
+        };
     }
-    public IActionResult UpdateGenre(int? id)
 
-
-
-
+    public IActionResult CreateGenre(AdminGenresViewModel m)
     {
-        System.Console.WriteLine(" buraad get foksiyonu calişti");
-        if (id == null) return NotFound();
-        var entity = _context.Genres
-        .Select(g => new AdminGenreEditViewModel
+        ModelState.Remove("Genres");
+        if (m.Name != null && m.Name.Length < 3) ModelState.AddModelError("Name", "min 3 karaketer olmalı ");
+        if (ModelState.IsValid)
         {
-            GenreId = g.GenreId,
-            Name = g.Name,
-            Movies = g.Movies.Select(m => new AdminMoviesViewModels
-            {
-                MovieId = m.MovieId,
-                Title = m.Title,
-                ImageUrl = m.Imageurl
-            }).ToList()
-        })
-        .FirstOrDefault(i => i.GenreId == id);
-        if (entity == null) return NotFound();
-        return View(entity);
-
-    }
-    [HttpPost]
-    public IActionResult UpdateGenre(AdminGenreEditViewModel model, int[]? movieIds, int? genreId)
-    {//                         genreId surekli 0 olarak geliyor  aslında model null olarka geliyor 
-
-
-        Console.WriteLine("      burada post calişti ");
-        var entity = _context.Genres.Include(m => m.Movies).FirstOrDefault(m => m.GenreId == genreId);
-        //  if (entity == null) return NotFound();
-        entity.Name = model.Name;
-        foreach (var id in movieIds)
-        {
-            entity.Movies.Remove(entity.Movies.FirstOrDefault(m => m.MovieId == id));
+            System.Console.WriteLine("burada ");
+            _context.Genres.Add(new Genre { Name = m.Name });
+            _context.SaveChanges();
+            return RedirectToAction("GenreList");
         }
-        _context.SaveChanges();
-        return RedirectToAction("GenreList");
+        var errors = ModelState;
+        foreach (var entry in errors)
+        {
+            System.Console.WriteLine("Key: " + entry.Key);  // Property adı (örneğin: Title, Description)
+            foreach (var item in entry.Value.Errors)
+            {
+                System.Console.WriteLine("Error Message: " + item.ErrorMessage);  // Hata mesajı
+            }
+        }
+        return View("GenreList", GetGenres());
     }
+    public IActionResult GenreList()
+    {
+        return View(GetGenres());
+    }
+
 
     [HttpPost]
     public IActionResult DeleteGenre(int? GenreId)
@@ -175,83 +231,67 @@ public class AdminController : Controller
 
 
 
-    public IActionResult movieUpdate(int? id)
+    public IActionResult UpdateGenre(int? id)
     {
+        System.Console.WriteLine(" buraad get foksiyonu calişti");
         if (id == null) return NotFound();
-        if (ModelState.IsValid)
+        var entity = _context.Genres
+        .Select(g => new AdminGenreEditViewModel
         {
-            var entity = _context.Movies
-            .Select(m => new AdminMoviesModelEdit
+            GenreId = g.GenreId,
+            Name = g.Name,
+            Movies = g.Movies.Select(m => new AdminMoviesViewModels
             {
                 MovieId = m.MovieId,
                 Title = m.Title,
-                Description = m.Description,
-                ImageUrl = m.Imageurl,
-                GenreIds = m.Genres.Select(i => i.GenreId).ToArray()
-            })
-            .FirstOrDefault(m => m.MovieId == id);
-
-            ViewBag.Genres = _context.Genres.ToList();
-
-            if (entity == null) return NotFound();
-
-            return View(entity);
-        }
-        ViewBag.Genres = _context.Genres.ToList();
-        return View();
-
-
-    }
-
-
-
-
-  [HttpPost]
-public async Task<IActionResult> movieUpdate(AdminMoviesModelEdit model, int[] genreids,IFormFile file)
-{    ModelState.Remove("file");
-
-    if (ModelState.IsValid)
-    {
-        var entity = _context.Movies.Include("Genres").FirstOrDefault(m => m.MovieId == model.MovieId);
+                ImageUrl = m.Imageurl
+            }).ToList()
+        })
+        .FirstOrDefault(i => i.GenreId == id);
         if (entity == null) return NotFound();
-        entity.Title = model.Title;
-        entity.Description = model.Description;
+        return View(entity);
 
-            if (file != null)
-            {
-                var extension = Path.GetExtension(file.FileName);
-                var FileName = string.Format($"{Guid.NewGuid()}{extension}");
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\img", FileName);
-                entity.Imageurl = FileName;
-                using (var stream = new FileStream(path, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
-            }
-
-
-
-        entity.Genres = genreids.Select(id => _context.Genres.FirstOrDefault(i => i.GenreId == id)).ToList();
-        _context.SaveChanges();
-        return RedirectToAction("MovieList");
     }
-
-    var errors = ModelState;
-    foreach (var entry in errors)
+    [HttpPost]
+    public IActionResult UpdateGenre(AdminGenreEditViewModel model, int[]? movieIds)
     {
-        System.Console.WriteLine("Key: " + entry.Key);  // Property adı (örneğin: Title, Description)
-        foreach (var item in entry.Value.Errors)
+        if (model.Movies != null)
         {
-            System.Console.WriteLine("Error Message: " + item.ErrorMessage);  // Hata mesajı
+
+            for (var i = 0; i < model.Movies.Count; i++)
+            {
+                ModelState.Remove($"Movies[{i}].Genres");
+            }
         }
+        if (ModelState.IsValid)
+        {
+
+
+
+
+            var entity = _context.Genres.Include(m => m.Movies).FirstOrDefault(m => m.GenreId == model.GenreId);
+            //  if (entity == null) return NotFound();
+            entity.Name = model.Name;
+            foreach (var id in movieIds)
+            {
+                entity.Movies.Remove(entity.Movies.FirstOrDefault(m => m.MovieId == id));
+            }
+            _context.SaveChanges();
+            return RedirectToAction("GenreList");
+        }
+        var errors = ModelState;
+
+        foreach (var entry in errors)
+        {
+            System.Console.WriteLine("Key: " + entry.Key);  // Property adı (örneğin: Title, Description)
+            foreach (var item in entry.Value.Errors)
+            {
+                System.Console.WriteLine("Error Message: " + item.ErrorMessage);  // Hata mesajı
+            }
+        }
+
+        return View(model);
     }
-
-    ViewBag.Genres = _context.Genres.ToList();
-    return View(model);
-}
-
-
-
 
 
 
